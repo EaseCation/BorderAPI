@@ -1,0 +1,10 @@
+name: BorderAPI
+
+main: com.boybook.BorderAPI.BorderAPI
+version: "1.0.0"
+api: ["1.0.0"]
+
+load: POSTWORLD
+author: boybook
+description: Border
+website: http://www.fcmcpe.com
