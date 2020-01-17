@@ -54,7 +54,6 @@ public class BorderPos {
         return null;
     }
 
-
     public String toString() {
         return "minX=" + String.valueOf(minX) + " " +
                 "maxX=" + String.valueOf(maxX) + " " +
