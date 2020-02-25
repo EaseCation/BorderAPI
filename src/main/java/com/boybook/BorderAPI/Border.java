@@ -247,7 +247,7 @@ public class Border {
                     }
                     if ((this.reboundPlayer && this.reboundPlayer(player, m) > 0.3) || (!this.reboundPlayer || this.getPlayerOutTick(player) > 20 * 5)) {
                         if (this.beDamagedOut > 0 && player.noDamageTicks <= 0) {
-                            player.attack(new EntityDamageByBlockEvent(new BlockAir(0), player, EntityDamageEvent.DamageCause.VOID, this.beDamagedOut));
+                            player.attack(new EntityDamageByBlockEvent(new BlockAir(), player, EntityDamageEvent.DamageCause.VOID, this.beDamagedOut));
                             player.noDamageTicks = this.beDamagedOutTicks;
                         }
                     }
