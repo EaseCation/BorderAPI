@@ -27,8 +27,8 @@ public class BorderAPI extends PluginBase {
 
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new EventListener(this), this);
-        getServer().getScheduler().scheduleAsyncTask(tickBorderThread);
-        getServer().getScheduler().scheduleRepeatingTask(new TickBirderRunnable(), 1);
+        getServer().getScheduler().scheduleAsyncTask(this, tickBorderThread);
+        getServer().getScheduler().scheduleRepeatingTask(this, new TickBirderRunnable(), 1);
         getLogger().notice("BorderAPI by boybook Enabled!");
     }
 
