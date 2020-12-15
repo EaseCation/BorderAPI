@@ -34,8 +34,7 @@ public class Border {
     public int changeTick = 0;
 
     private boolean canEditOut = false;
-    private float beDamagedOut = 1;
-    private int beDamagedOutTicks = 10;
+    private OutDo outDo;
     private boolean reboundPlayer = true;
 
     public Map<MotionDirection, BorderWall> wall = new HashMap<>();
@@ -57,20 +56,16 @@ public class Border {
         this.canEditOut = canEditOut;
     }
 
-    public float getBeDamagedOut() {
-        return beDamagedOut;
-    }
-
     public void setBeDamagedOut(float beDamagedOut) {
-        this.beDamagedOut = beDamagedOut;
+        this.setBeDamagedOut(beDamagedOut, 10);
+    }
+    public void setBeDamagedOut(float beDamagedOut, int beDamagedOutTicks) {
+        this.outDo = new OutDo.Damage(beDamagedOut, beDamagedOutTicks);
     }
 
-    public int getBeDamagedOutTicks() {
-        return beDamagedOutTicks;
-    }
-
-    public void setBeDamagedOutTicks(int beDamagedOutTicks) {
-        this.beDamagedOutTicks = beDamagedOutTicks;
+    public Border setOutDo(OutDo outDo) {
+        this.outDo = outDo;
+        return this;
     }
 
     public boolean canReboundPlayer() {
@@ -246,9 +241,8 @@ public class Border {
                         this.playerOutTick.put(player, 0);
                     }
                     if ((this.reboundPlayer && this.reboundPlayer(player, m) > 0.3) || (!this.reboundPlayer || this.getPlayerOutTick(player) > 20 * 5)) {
-                        if (this.beDamagedOut > 0 && player.noDamageTicks <= 0) {
-                            player.attack(new EntityDamageByBlockEvent(new BlockAir(), player, EntityDamageEvent.DamageCause.VOID, this.beDamagedOut));
-                            player.noDamageTicks = this.beDamagedOutTicks;
+                        if (this.outDo != null) {
+                            this.outDo.outDo(player, this.getPlayerOutTick(player));
                         }
                     }
                 }
