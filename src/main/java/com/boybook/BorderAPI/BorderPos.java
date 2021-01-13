@@ -54,11 +54,19 @@ public class BorderPos {
         return null;
     }
 
+    public boolean isOutSideBool(Vector3 pos) {
+        return isOutside(pos) != null;
+    }
+
+    public boolean isInside(Vector3 pos) {
+        return !isOutSideBool(pos);
+    }
+
     public String toString() {
-        return "minX=" + String.valueOf(minX) + " " +
-                "maxX=" + String.valueOf(maxX) + " " +
-                "minZ=" + String.valueOf(minZ) + " " +
-                "maxZ=" + String.valueOf(maxZ);
+        return "minX=" + minX + " " +
+                "maxX=" + maxX + " " +
+                "minZ=" + minZ + " " +
+                "maxZ=" + maxZ;
     }
 
     @Override

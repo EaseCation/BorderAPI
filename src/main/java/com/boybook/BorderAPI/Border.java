@@ -20,9 +20,9 @@ import java.util.Map;
  */
 public class Border {
 
-    private Level level;
+    private final Level level;
 
-    public Map<Player, Integer> playerOutTick = new HashMap<>();
+    private final Map<Player, Integer> playerOutTick = new HashMap<>();
 
     //变量可见性
     public volatile BorderPos nowBorder;
@@ -37,7 +37,7 @@ public class Border {
     private OutDo outDo;
     private boolean reboundPlayer = true;
 
-    public Map<MotionDirection, BorderWall> wall = new HashMap<>();
+    private final Map<MotionDirection, BorderWall> wall = new HashMap<>();
 
     public Border(Level level, BorderPos border) {
         this.level = level;
@@ -52,15 +52,18 @@ public class Border {
         return canEditOut;
     }
 
-    public void setCanEditOut(boolean canEditOut) {
+    public Border setCanEditOut(boolean canEditOut) {
         this.canEditOut = canEditOut;
+        return this;
     }
 
-    public void setBeDamagedOut(float beDamagedOut) {
-        this.setBeDamagedOut(beDamagedOut, 10);
+    public Border setBeDamagedOut(float beDamagedOut) {
+        return this.setBeDamagedOut(beDamagedOut, 10);
     }
-    public void setBeDamagedOut(float beDamagedOut, int beDamagedOutTicks) {
+
+    public Border setBeDamagedOut(float beDamagedOut, int beDamagedOutTicks) {
         this.outDo = new OutDo.Damage(beDamagedOut, beDamagedOutTicks);
+        return this;
     }
 
     public Border setOutDo(OutDo outDo) {
@@ -72,11 +75,12 @@ public class Border {
         return reboundPlayer;
     }
 
-    public void setReboundPlayer(boolean reboundPlayer) {
+    public Border setReboundPlayer(boolean reboundPlayer) {
         this.reboundPlayer = reboundPlayer;
+        return this;
     }
 
-    public void setCanSee(boolean canSee, Class<? extends BorderWall> clazz) {
+    public Border setCanSee(boolean canSee, Class<? extends BorderWall> clazz) {
         if (!canSee) {
             this.wall.clear();
         } else {
@@ -101,26 +105,27 @@ public class Border {
                 }
             }
         }
+        return this;
     }
 
     public boolean canSee() {
         return this.wall.size() > 0;
     }
 
-    public void spawnAllWallsTo(Player player) {
+    void spawnAllWallsTo(Player player) {
         for (BorderWall wall: this.wall.values()) {
             wall.spawnTo(player);
         }
     }
 
-    public void despawnAllWallsTo(Player player) {
+    void despawnAllWallsTo(Player player) {
         for (BorderWall wall: this.wall.values()) {
             wall.despawnFrom(player);
         }
     }
 
     //反弹玩家
-    public double reboundPlayer(Player player, MotionDirection motionDirection) {
+    double reboundPlayer(Player player, MotionDirection motionDirection) {
         Vector3 motion = new Vector3(0, -0.098, 0);
         Double speed = this.getReboundSpeed(player, motionDirection);
         switch (motionDirection) {
@@ -149,7 +154,7 @@ public class Border {
     }
 
     //反弹玩家
-    public double getReboundSpeed(Vector3 pos, MotionDirection motionDirection) {
+    double getReboundSpeed(Vector3 pos, MotionDirection motionDirection) {
         double speed = 0;
         switch (motionDirection) {
             case Xx:
@@ -171,7 +176,7 @@ public class Border {
         return speed;
     }
 
-    public void setNewBorder(BorderPos border) {
+    public Border setNewBorder(BorderPos border) {
         this.nowBorder = border;
         speedMaxX = 0;
         speedMinX = 0;
@@ -180,9 +185,10 @@ public class Border {
         changeTick = 0;
         this.playerOutTick.clear();
         Server.getInstance().getLogger().debug("已设置新边界 " + nowBorder.toString());
+        return this;
     }
 
-    public void setNewBorder(BorderPos border, int changeTick) {
+    public Border setNewBorder(BorderPos border, int changeTick) {
         if (nowBorder == null) {
             nowBorder = new BorderPos(0, 0, 0, 0);
         }
@@ -193,25 +199,25 @@ public class Border {
         this.changeTick = changeTick;
         this.playerOutTick.clear();
         Server.getInstance().getLogger().debug("已设置新边界 " + nowBorder.toString());
+        return this;
     }
 
     //中心型的正方形边界(PC那种)
-    public void setCentralTypeBorder(Vector2 central, int radius) {
+    public Border setCentralTypeBorder(Vector2 central, int radius) {
         BorderPos border = new BorderPos(central.x - radius, central.x + radius, central.y - radius, central.y + radius);
-        this.setNewBorder(border);
+        return this.setNewBorder(border);
     }
 
-    public void setCentralTypeBorder(Vector2 central, int radius, int changeTick) {
+    public Border setCentralTypeBorder(Vector2 central, int radius, int changeTick) {
         BorderPos border = new BorderPos(central.x - radius, central.x + radius, central.y - radius, central.y + radius);
-        this.setNewBorder(border, changeTick);
+        return this.setNewBorder(border, changeTick);
     }
 
     public static BorderPos getCentralTypeBorderPos(Vector2 central, int radius) {
-        BorderPos border = new BorderPos(central.x - radius, central.x + radius, central.y - radius, central.y + radius);
-        return border;
+        return new BorderPos(central.x - radius, central.x + radius, central.y - radius, central.y + radius);
     }
 
-    public void onThreadTick(int tick) {
+    void onThreadTick(int tick) {
         if (nowBorder != null) {
             for (BorderWall wall: this.wall.values()) {
                 wall.onThreadTick(tick);
@@ -219,12 +225,12 @@ public class Border {
         }
     }
 
-    public int getPlayerOutTick(Player player) {
+    int getPlayerOutTick(Player player) {
         Integer tick = this.playerOutTick.get(player);
         return tick != null ? tick : 0;
     }
 
-    public void onTick(int tick) {
+    void onTick(int tick) {
         if (nowBorder != null) {
             for (Player player: this.getLevel().getPlayers().values()) {
                 if (this.playerOutTick.containsKey(player)) {
