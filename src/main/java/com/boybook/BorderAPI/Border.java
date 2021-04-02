@@ -82,6 +82,9 @@ public class Border {
 
     public Border setCanSee(boolean canSee, Class<? extends BorderWall> clazz) {
         if (!canSee) {
+            for (Player player : this.getLevel().getPlayers().values()) {
+                this.despawnAllWallsTo(player);
+            }
             this.wall.clear();
         } else {
             if (this.wall.size() == 0) {
