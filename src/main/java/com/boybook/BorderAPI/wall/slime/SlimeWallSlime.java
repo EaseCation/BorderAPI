@@ -43,6 +43,7 @@ public class SlimeWallSlime {
         pk.speedY = 0f;
         pk.speedZ = 0f;
         pk.yaw = (float)this.yaw;
+        pk.headYaw = (float)this.yaw;
         pk.pitch = 0f;
         pk.metadata = new EntityMetadata();
         /*

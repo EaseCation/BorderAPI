@@ -102,6 +102,7 @@ public class HumanWall extends BorderWall {
         pk.speedY = 0;
         pk.speedZ = 0;
         pk.yaw = (float) this.yaw;
+        pk.headYaw = (float) this.yaw;
         pk.pitch = (float) 0;
         pk.item = Item.get(0);
         pk.metadata = new EntityMetadata()
