@@ -62,6 +62,22 @@ public class BorderPos {
         return !isOutSideBool(pos);
     }
 
+    public MotionDirection isBlockOutside(Vector3 pos) {
+        if (pos.x >= (int) this.maxX) return MotionDirection.Xx;
+        if (pos.x < (int) this.minX) return MotionDirection.xX;
+        if (pos.z >= (int) this.maxZ) return MotionDirection.Zz;
+        if (pos.z < (int) this.minZ) return MotionDirection.zZ;
+        return null;
+    }
+
+    public boolean isBlockOutSideBool(Vector3 pos) {
+        return isBlockOutside(pos) != null;
+    }
+
+    public boolean isBlockInside(Vector3 pos) {
+        return !isBlockOutSideBool(pos);
+    }
+
     public String toString() {
         return "minX=" + minX + " " +
                 "maxX=" + maxX + " " +

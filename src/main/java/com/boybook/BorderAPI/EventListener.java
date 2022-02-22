@@ -16,7 +16,7 @@ import cn.nukkit.level.Level;
  */
 public class EventListener implements Listener {
 
-    private BorderAPI plugin;
+    private final BorderAPI plugin;
 
     public EventListener(BorderAPI plugin) {
         this.plugin = plugin;
@@ -31,7 +31,7 @@ public class EventListener implements Listener {
     @EventHandler
     public void onLevelUnload(LevelUnloadEvent event) {
         Level level = event.getLevel();
-        if (plugin.borders.containsKey(level)) plugin.borders.remove(level);
+        plugin.borders.remove(level);
     }
 
     @EventHandler
