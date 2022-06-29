@@ -1,5 +1,6 @@
 package com.boybook.BorderAPI.wall.slime;
 
+import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.data.EntityMetadata;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.*;
@@ -28,7 +29,8 @@ public class SlimeWallSlime {
         this.y = pos.y;
         this.z = pos.z;
         this.yaw = yaw;
-        this.id = 1095216660480L + ThreadLocalRandom.current().nextLong(0L, 2147483647L);
+//        this.id = 1095216660480L + ThreadLocalRandom.current().nextLong(0L, 2147483647L);
+        this.id = Entity.entityCount++;
     }
 
     public DataPacket spawnTo() {
