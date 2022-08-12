@@ -1,7 +1,7 @@
 package com.boybook.BorderAPI;
 
 import cn.nukkit.Player;
-import cn.nukkit.block.BlockAir;
+import cn.nukkit.block.Block;
 import cn.nukkit.event.entity.EntityDamageByBlockEvent;
 import cn.nukkit.event.entity.EntityDamageEvent;
 
@@ -25,7 +25,7 @@ public interface OutDo {
         @Override
         public void outDo(Player player, int ticks) {
             if (this.beDamagedOut > 0 && player.noDamageTicks <= 0) {
-                player.attack(new EntityDamageByBlockEvent(new BlockAir(), player, EntityDamageEvent.DamageCause.VOID, this.beDamagedOut));
+                player.attack(new EntityDamageByBlockEvent(Block.get(Block.AIR), player, EntityDamageEvent.DamageCause.VOID, this.beDamagedOut));
                 player.noDamageTicks = this.beDamagedOutTicks;
             }
         }
