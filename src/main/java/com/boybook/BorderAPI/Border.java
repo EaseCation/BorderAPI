@@ -2,18 +2,15 @@ package com.boybook.BorderAPI;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
-import cn.nukkit.block.BlockAir;
-import cn.nukkit.event.entity.EntityDamageByBlockEvent;
-import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.Vector2;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.SetEntityMotionPacket;
-import com.boybook.BorderAPI.wall.slime.BorderSlimeWall;
 import com.boybook.BorderAPI.wall.BorderWall;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 /**
  * Created by funcraft on 2016/2/11.
@@ -80,7 +77,7 @@ public class Border {
         return this;
     }
 
-    public Border setCanSee(boolean canSee, Class<? extends BorderWall> clazz) {
+    public Border setCanSee(boolean canSee, BiFunction<Border, MotionDirection, BorderWall> factory) {
         if (!canSee) {
             for (Player player : this.getLevel().getPlayers().values()) {
                 this.despawnAllWallsTo(player);
@@ -88,13 +85,13 @@ public class Border {
             this.wall.clear();
         } else {
             if (this.wall.size() == 0) {
-                Server.getInstance().getLogger().debug("开始可见屏障 " + clazz.getSimpleName());
+//                Server.getInstance().getLogger().debug("开始可见屏障 " + clazz.getSimpleName());
                 //BorderHumanWall Xx = new BorderHumanWall(this, MotionDirection.Xx);
                 try {
-                    BorderWall Xx = clazz.getConstructor(Border.class, MotionDirection.class).newInstance(this, MotionDirection.Xx);
-                    BorderWall xX = clazz.getConstructor(Border.class, MotionDirection.class).newInstance(this, MotionDirection.xX);
-                    BorderWall Zz = clazz.getConstructor(Border.class, MotionDirection.class).newInstance(this, MotionDirection.Zz);
-                    BorderWall zZ = clazz.getConstructor(Border.class, MotionDirection.class).newInstance(this, MotionDirection.zZ);
+                    BorderWall Xx = factory.apply(this, MotionDirection.Xx);
+                    BorderWall xX = factory.apply(this, MotionDirection.xX);
+                    BorderWall Zz = factory.apply(this, MotionDirection.Zz);
+                    BorderWall zZ = factory.apply(this, MotionDirection.zZ);
                     this.wall.put(MotionDirection.Xx, Xx);
                     this.wall.put(MotionDirection.xX, xX);
                     this.wall.put(MotionDirection.Zz, Zz);
