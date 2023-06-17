@@ -136,7 +136,7 @@ public class HumanWall extends BorderWall {
         pk.yaw = (float) this.yaw;
         pk.pitch = 0;
         pk.headYaw = (float) this.yaw;
-        pk.mode = 0;
+        pk.mode = MovePlayerPacket.MODE_NORMAL;
         player.dataPacket(pk);
     }
 

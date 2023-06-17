@@ -1,6 +1,7 @@
 package com.boybook.BorderAPI.wall.slime;
 
 import cn.nukkit.entity.Entity;
+import cn.nukkit.entity.EntityID;
 import cn.nukkit.entity.data.EntityMetadata;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.*;
@@ -37,7 +38,7 @@ public class SlimeWallSlime {
         AddEntityPacket pk = new AddEntityPacket();
         pk.entityRuntimeId = this.getId();
         pk.entityUniqueId = this.getId();
-        pk.type = 37;
+        pk.type = EntityID.SLIME;
         pk.x = (float)this.x;
         pk.y = (float)this.y;
         pk.z = (float)this.z;
