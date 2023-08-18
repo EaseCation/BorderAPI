@@ -197,11 +197,11 @@ public class BorderSlimeWall extends BorderWall {
         for (SlimeWallSlime s: this.pool) {
             MoveEntityPacket pk = new MoveEntityPacket();
             pk.eid = s.getId();
-            pk.x = s.x;
-            pk.y = s.y + player.getY() - 5;
-            pk.z = s.z;
-            pk.yaw = s.yaw;
-            pk.headYaw = s.yaw;
+            pk.x = (float) s.x;
+            pk.y = (float) (s.y + player.getY() - 5);
+            pk.z = (float) s.z;
+            pk.yaw = (float) s.yaw;
+            pk.headYaw = (float) s.yaw;
             pk.pitch = 0;
             player.dataPacket(pk);
         }
