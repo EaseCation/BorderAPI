@@ -100,8 +100,7 @@ public class Border {
                         this.spawnAllWallsTo(player);
                     }
                 } catch (Exception e) {
-                    BorderAPI.getInstance().getLogger().alert("创建 " + this.getLevel().getFolderName() + " 地图边界可视化时发生错误！");
-                    Server.getInstance().getLogger().logException(e);
+                    BorderAPI.getInstance().getLogger().alert("创建 " + this.getLevel().getFolderName() + " 地图边界可视化时发生错误！", e);
                 }
             }
         }
