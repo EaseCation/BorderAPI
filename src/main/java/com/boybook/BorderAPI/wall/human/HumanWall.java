@@ -106,7 +106,7 @@ public class HumanWall extends BorderWall {
         pk.pitch = (float) 0;
         pk.item = Item.get(0);
         pk.metadata = new EntityMetadata()
-                .putBoolean(Entity.DATA_ALWAYS_SHOW_NAMETAG, false)
+                .putByte(Entity.DATA_ALWAYS_SHOW_NAMETAG, 0)
                 .putFloat(Entity.DATA_SCALE, 10f)
                 .putFloat(Entity.DATA_BOUNDING_BOX_HEIGHT, 0)
                 .putFloat(Entity.DATA_BOUNDING_BOX_WIDTH, 0);
