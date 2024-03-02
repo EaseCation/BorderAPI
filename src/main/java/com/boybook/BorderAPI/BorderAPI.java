@@ -29,7 +29,7 @@ public class BorderAPI extends PluginBase {
         getServer().getPluginManager().registerEvents(new EventListener(this), this);
         getServer().getScheduler().scheduleAsyncTask(this, tickBorderThread);
         getServer().getScheduler().scheduleRepeatingTask(this, new TickBirderRunnable(), 1);
-        getLogger().notice("BorderAPI by boybook Enabled!");
+        getLogger().info("BorderAPI by boybook Enabled!");
     }
 
     public Border getLevelBorder(Level level) {
