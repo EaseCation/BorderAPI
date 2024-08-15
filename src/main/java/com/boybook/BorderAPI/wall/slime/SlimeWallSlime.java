@@ -5,16 +5,13 @@ import cn.nukkit.entity.EntityID;
 import cn.nukkit.entity.data.EntityMetadata;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.*;
-import com.boybook.BorderAPI.MotionDirection;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by funcraft on 2016/2/13.
  */
 public class SlimeWallSlime {
 
-    public long id;
+    public final long id;
 
     public double x;
     public double y;

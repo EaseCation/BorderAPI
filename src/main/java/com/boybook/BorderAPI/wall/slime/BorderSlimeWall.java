@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class BorderSlimeWall extends BorderWall {
 
-    public List<SlimeWallSlime> pool = new ArrayList<>();
+    public final List<SlimeWallSlime> pool = new ArrayList<>();
 
-    public List<DataPacket> spawnDataPacketsCache = new ArrayList<>();
-    public List<DataPacket> despawnDataPacketsCache = new ArrayList<>();
+    public final List<DataPacket> spawnDataPacketsCache = new ArrayList<>();
+    public final List<DataPacket> despawnDataPacketsCache = new ArrayList<>();
 
     public BorderSlimeWall(Border border, MotionDirection direction) {
         super(border, direction);
@@ -122,7 +122,7 @@ public class BorderSlimeWall extends BorderWall {
     public void updateAll() {
         //todo
         updateAllSlimes();
-        for (Player player: this.border.getLevel().getPlayers().values()) {
+        for (Player player: new ArrayList<>(this.border.getLevel().getPlayers().values())) {
             updatePosTo(player);
         }
 
@@ -194,7 +194,7 @@ public class BorderSlimeWall extends BorderWall {
     }
 
     public void updatePosTo(Player player) {
-        for (SlimeWallSlime s: this.pool) {
+        for (SlimeWallSlime s : new ArrayList<>(this.pool)) {
             MoveEntityPacket pk = new MoveEntityPacket();
             pk.eid = s.getId();
             pk.x = (float) s.x;
@@ -253,7 +253,7 @@ public class BorderSlimeWall extends BorderWall {
     @Override
     public void spawnTo(Player player) {
         for (DataPacket pk: this.spawnDataPacketsCache) {
-            player.directDataPacket(pk);
+            player.dataPacket(pk);
             //Server.getInstance().getLogger().debug(pk.toString());
         }
     }
@@ -261,7 +261,7 @@ public class BorderSlimeWall extends BorderWall {
     @Override
     public void despawnFrom(Player player) {
         for (DataPacket pk: this.despawnDataPacketsCache) {
-            player.directDataPacket(pk);
+            player.dataPacket(pk);
             //Server.getInstance().getLogger().debug(pk.toString());
         }
     }

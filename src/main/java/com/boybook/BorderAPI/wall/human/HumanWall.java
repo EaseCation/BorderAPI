@@ -6,10 +6,6 @@ import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.data.EntityMetadata;
 import cn.nukkit.entity.data.Skin;
 import cn.nukkit.item.Item;
-import cn.nukkit.level.Level;
-import cn.nukkit.level.particle.FlameParticle;
-import cn.nukkit.math.Vector2;
-import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.*;
 import com.boybook.BorderAPI.Border;
 import com.boybook.BorderAPI.BorderAPI;
@@ -18,7 +14,6 @@ import com.boybook.BorderAPI.Utils;
 import com.boybook.BorderAPI.wall.BorderWall;
 
 import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * com.boybook.BorderAPI.wall.particle
@@ -53,10 +48,10 @@ public class HumanWall extends BorderWall {
     @Override
     public void onThreadTick(int tick) {
         this.updatePosition();
-        for (Player player : this.border.getLevel().getPlayers().values()) {
+        for (Player player : new ArrayList<>(this.border.getLevel().getPlayers().values())) {
             boolean needAllTick = false;
-            if ((this.direction == MotionDirection.Xx || this.direction == MotionDirection.xX) && Math.max(player.x, this.xz) - Math.max(player.x, this.xz) < 50) needAllTick = true;
-            else if ((this.direction == MotionDirection.Zz || this.direction == MotionDirection.zZ) && Math.max(player.z, this.xz) - Math.max(player.z, this.xz) < 50) needAllTick = true;
+            if ((this.direction == MotionDirection.Xx || this.direction == MotionDirection.xX) /*&& Math.max(player.x, this.xz) - Math.max(player.x, this.xz) < 50*/) needAllTick = true;
+            else if ((this.direction == MotionDirection.Zz || this.direction == MotionDirection.zZ) /*&& Math.max(player.z, this.xz) - Math.max(player.z, this.xz) < 50*/) needAllTick = true;
             if (needAllTick || tick % 20 == 0) this.sendPosition(player);
         }
     }

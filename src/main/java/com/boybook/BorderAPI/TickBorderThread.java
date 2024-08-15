@@ -1,7 +1,6 @@
 package com.boybook.BorderAPI;
 
 import cn.nukkit.Server;
-import cn.nukkit.scheduler.AsyncTask;
 import cn.nukkit.utils.TextFormat;
 
 import java.util.ArrayList;
@@ -9,12 +8,19 @@ import java.util.ArrayList;
 /**
  * Created by funcraft on 2016/2/15.
  */
-public class TickBorderThread extends AsyncTask {
+public class TickBorderThread extends Thread {
 
-    int tick = 0;
-    public void onRun() {
+    private int tick = 0;
+
+    public TickBorderThread() {
+        super("Border Ticker");
+        setDaemon(true);
+    }
+
+    @Override
+    public void run() {
         long startTime = System.currentTimeMillis();
-        while(true) {
+        while (true) {
             try {
                 for (Border border: new ArrayList<>(BorderAPI.getInstance().borders.values())) {
                     try {
@@ -29,13 +35,12 @@ public class TickBorderThread extends AsyncTask {
 
             long duration = System.currentTimeMillis() - startTime;
             if (duration < 50) {
-                try{
+                try {
                     Thread.sleep(50 - duration);
                 } catch (InterruptedException e) {}
             }
             startTime = System.currentTimeMillis();
             tick++;
         }
-
     }
 }

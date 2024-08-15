@@ -13,21 +13,23 @@ public class BorderAPI extends PluginBase {
 
     public static BorderAPI instance;
 
-    public Map<Level, Border> borders = new HashMap<>();
+    public final Map<Level, Border> borders = new HashMap<>();
 
-    public TickBorderThread tickBorderThread = new TickBorderThread();
+    public final TickBorderThread tickBorderThread = new TickBorderThread();
 
     public static BorderAPI getInstance() {
         return instance;
     }
 
+    @Override
     public void onLoad() {
         instance = this;
     }
 
+    @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new EventListener(this), this);
-        getServer().getScheduler().scheduleAsyncTask(this, tickBorderThread);
+        getServer().getScheduler().scheduleTask(this, tickBorderThread::start);
         getServer().getScheduler().scheduleRepeatingTask(this, new TickBirderRunnable(), 1);
         getLogger().info("BorderAPI by boybook Enabled!");
     }

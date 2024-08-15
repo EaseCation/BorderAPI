@@ -14,8 +14,8 @@ import com.boybook.BorderAPI.MotionDirection;
  */
 public abstract class BorderWall {
 
-    protected Border border;
-    protected MotionDirection direction;
+    protected final Border border;
+    protected final MotionDirection direction;
 
     public BorderWall(Border border, MotionDirection direction) {
         this.border = border;

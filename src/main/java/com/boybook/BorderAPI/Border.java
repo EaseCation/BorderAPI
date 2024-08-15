@@ -108,7 +108,7 @@ public class Border {
     }
 
     public boolean canSee() {
-        return this.wall.size() > 0;
+        return !this.wall.isEmpty();
     }
 
     void spawnAllWallsTo(Player player) {
