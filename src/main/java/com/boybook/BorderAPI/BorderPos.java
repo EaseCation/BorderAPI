@@ -93,4 +93,8 @@ public class BorderPos {
         }
         return false;
     }
+
+    public BorderPos copy() {
+        return new BorderPos(minX, maxX, minZ, maxZ);
+    }
 }

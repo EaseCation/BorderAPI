@@ -176,7 +176,7 @@ public class Border {
     }
 
     public Border setNewBorder(BorderPos border) {
-        this.nowBorder = border;
+        this.nowBorder = border.copy();
         speedMaxX = 0;
         speedMinX = 0;
         speedMaxZ = 0;
